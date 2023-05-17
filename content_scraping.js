@@ -10,36 +10,37 @@ async function scrapeReddit(subreddit) {
 
         // Load the html with Cheerio
         const $ = cheerio.load(response.data);
-    
+
         // Grab the posts on the HTML page using the class '.Post'
         const posts = $('.Post');
 
-        const memeUrls = [];
+        const postUrls = [];
 
-        // Iterate trough each post and save the Image URL and Title to the memeUrls dataset
+        // Iterate trough each post and save the Image URL and Title to the postUrls dataset
         posts.each((index, element) => {
             if (index < 10) {
                 const title = $(element).find('.SQnoC3ObvgnGjWt90zD9Z').text();
                 const imageUrl = $(element).find('.ImageBox-image').attr('src');
 
-                // Some memes are video's and has a different html class so it can't find the .ImageBox-image and it ends up undefined, so I skip over those
+                // Some posts are video's and has a different html class so it can't find the .ImageBox-image and it ends up undefined, so I skip over those
                 if (imageUrl != undefined) {
-                    memeUrls.push({ title, imageUrl });
+                    postUrls.push({ title, imageUrl });
                 }
 
             }
         });
 
-        // Download and save the memes
-        memeUrls.forEach((meme, index) => {
-            const { title, imageUrl } = meme;
+        // Download and save the posts
+        postUrls.forEach((post, index) => {
+            const { title, imageUrl } = post;
 
-            axios({url: imageUrl,responseType: 'stream',}).then(response => {
+            axios({ url: imageUrl, responseType: 'stream', }).then(response => {
                 const filePath = `meme${index + 1}.jpg`;
                 response.data.pipe(fs.createWriteStream(filePath));
                 console.log(`Meme ${index + 1} saved: ${filePath}`);
             });
-        })} catch (error) {
+        })
+    } catch (error) {
         console.error('Error:', error);
     }
 }
