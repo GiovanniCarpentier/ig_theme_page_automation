@@ -1,0 +1,24 @@
+{
+  "name": "ig_theme_page_automation",
+  "version": "1.0.0",
+  "description": "Automation script for instagram theme pages",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GiovanniCarpentier/ig_theme_page_automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GiovanniCarpentier/ig_theme_page_automation/issues"
+  },
+  "homepage": "https://github.com/GiovanniCarpentier/ig_theme_page_automation#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
